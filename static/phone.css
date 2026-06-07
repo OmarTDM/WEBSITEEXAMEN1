@@ -1,0 +1,285 @@
+.phone-popup-overmij-btn {
+    position: absolute;
+    left: 29px;
+    top: 133px;
+    width: 276px;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 3;
+    cursor: pointer;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.phone-popup-socials-btn {
+    position: absolute;
+    left: 315px;
+    top: 132px;
+    width: 278px;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 3;
+    cursor: pointer;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.phone-popup-contact-btn {
+    position: absolute;
+    left: 29px;
+    top: 527px;
+    width: 279px;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 3;
+    cursor: pointer;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.phone-popup-spotify-btn {
+    position: absolute;
+    left: 315px;
+    top: 527px;
+    width: 279px;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 3;
+    cursor: pointer;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.phone-popup-overmij-btn:hover,
+.phone-popup-overmij-btn:focus-visible {
+    transform: scale(1.05);
+    outline: none;
+}
+.phone-popup-socials-btn:hover,
+.phone-popup-socials-btn:focus-visible {
+    transform: scale(1.05);
+    outline: none;
+}
+.phone-popup-contact-btn:hover,
+.phone-popup-contact-btn:focus-visible {
+    transform: scale(1.05);
+    outline: none;
+}
+.phone-popup-spotify-btn:hover,
+.phone-popup-spotify-btn:focus-visible {
+    transform: scale(1.05);
+    outline: none;
+}
+.phone-popup-overmij-img,
+.phone-popup-socials-img,
+.phone-popup-contact-img,
+.phone-popup-spotify-img {
+    width: 100%;
+    display: block;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.phone-popup-shell {
+    position: relative;
+    width: fit-content;
+}
+
+.phone-app-overlay {
+    position: absolute;
+    left: 20px;
+    top: 125px;
+    width: 583px;
+    height: 795px;
+    background: #ffffff;
+    border-radius: 0;
+    border: 2px solid #d8d8d8;
+    z-index: 6;
+    box-sizing: border-box;
+    padding: 58px 20px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+    overflow: hidden;
+}
+
+.phone-app-overlay.phone-app-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#phone-popup.phone-app-mode [data-app-target] {
+    pointer-events: none;
+}
+
+.phone-app-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: 1px solid #cfcfcf;
+    background: #f2f2f2;
+    color: #222;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.phone-app-screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.phone-app-screen.phone-app-screen-visible {
+    display: block;
+}
+
+.phone-about-card {
+    min-height: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #fffdf8 0%, #f6eee3 100%);
+    border: 1px solid #eadcc8;
+    border-radius: 24px;
+    color: #3d2b1f;
+}
+
+.phone-about-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.phone-about-copy {
+    flex: 1;
+    min-width: 0;
+}
+
+.phone-about-eyebrow {
+    margin: 0 0 8px;
+    font: 600 12px/1.2 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8a5b3f;
+}
+
+.phone-about-copy h3 {
+    margin: 0 0 12px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 700;
+    color: #2f1d14;
+}
+
+.phone-about-description {
+    margin: 0;
+    max-width: 290px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 19px;
+    line-height: 1.5;
+    color: #594031;
+}
+
+.phone-about-photo-frame {
+    flex: 0 0 176px;
+    width: 176px;
+    aspect-ratio: 1 / 1;
+    padding: 8px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #f7e3c7 0%, #d7b594 100%);
+    box-shadow: 0 14px 26px rgba(77, 46, 28, 0.18);
+}
+
+.phone-about-photo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 18px;
+    background: #f7f1ea;
+}
+
+.phone-about-note {
+    margin: 22px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid rgba(138, 91, 63, 0.2);
+    font: 500 24px/1.6 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #7b604e;
+}
+
+@media (max-width: 720px) {
+    .phone-about-header {
+        flex-direction: column-reverse;
+    }
+
+    .phone-about-photo-frame {
+        width: min(100%, 176px);
+    }
+
+    .phone-about-description {
+        max-width: none;
+    }
+}
+
+.phone-btn {
+    position: fixed;
+    left: 40px;
+    bottom: 140px;
+    width: 100px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+.phone-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Popup phone overlay */
+
+#phone-popup {
+    position: fixed;
+    left: 32px;
+    bottom: 0;
+    transform: translateY(calc(100% + 32px)) scale(var(--viewport-scale, 1));
+    transform-origin: left bottom;
+    z-index: 200;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#phone-popup.phone-popup-visible {
+    transform: translateY(0) scale(var(--viewport-scale, 1));
+    pointer-events: auto;
+}
+
+.phone-popup-img {
+    width: 620px;
+    max-width: 98vw;
+    height: auto;
+    display: block;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    border-radius: 18px 18px 32px 32px;
+    background: #222;
+    margin-bottom: 0;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.phone-popup-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 48px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 18px 18px 0 0;
+    /* Optional: add a visual indicator for the clickable area */
+    /* background: rgba(255,255,255,0.04); */
+}

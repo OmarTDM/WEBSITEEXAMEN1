@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omars portfolio website.</title>
+    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="/static/agentseat.css">
+    <link rel="stylesheet" href="/static/oldmanseat.css">
+    <link rel="stylesheet" href="/static/astronautseat.css">
+    <link rel="stylesheet" href="/static/whitehairseat.css">
+    <link rel="stylesheet" href="/static/phone.css">
+    <link rel="stylesheet" href="/static/counter.css">
+    <link rel="stylesheet" href="/static/drawer.css">
+    <link rel="stylesheet" href="/static/drawer-card.css">
+    <link rel="stylesheet" href="/static/drawer-popup.css">
+    <link rel="stylesheet" href="/static/drawer-zoom.css">
+    <link rel="stylesheet" href="/static/zoom-back.css">
+    <link rel="stylesheet" href="/static/cinematic.css">
+    <script>
+        if (sessionStorage.getItem('starterTransitionPending') === 'true') {
+            document.documentElement.classList.add('has-starter-transition');
+        }
+
+        window.addEventListener('load', () => {
+            const starterImage = document.querySelector('.starter-image');
+            const hasPendingTransition = sessionStorage.getItem('starterTransitionPending') === 'true';
+
+            if (!starterImage || !hasPendingTransition) {
+                return;
+            }
+
+            starterImage.classList.add('play-outro');
+            sessionStorage.removeItem('starterTransitionPending');
+
+            window.setTimeout(() => {
+                starterImage.classList.add('is-hidden');
+                document.documentElement.classList.remove('has-starter-transition');
+            }, 2200);
+        });
+    </script>
+    <script src="/static/drawer-zoom.js" defer></script>
+    <script src="/static/drawer-popup.js" defer></script>
+    <script src="/static/whitehair-recipe.js" defer></script>
+    <script src="/static/recipe-ingredients.js" defer></script>
+    <script src="/static/cinematic.js" defer></script>
+    <script src="/static/phone-popup.js" defer></script>
+    <script src="/static/viewport-scale.js" defer></script>
+</head>
+<body>
+    <button class="zoom-back-btn" type="button" aria-label="Back from drawer zoom" title="Back">
+        <img src="/static/pictures/magnifyingglasscoffeetalk.png" alt="Back">
+    </button>
+    <div class="viewport-stage scene-stage">
+    <div class="scene-root">
+
+   <!-- <a href="/admin" title="Admin Panel">
+        <img class="admin-btn" src="/static/pictures/adminpanel.png" alt="Admin Panel">
+    </a>-->
+    <img class="phone-btn" src="/static/pictures/coffeetalkphone.png" alt="Phone">
+
+
+    <img class="counter" src="/static/pictures/counter.png" alt="Counter">
+    <img class="drawer" src="/static/pictures/drawercoffeetalk.png" alt="Drawer">
+    <button class="drawer-card-btn" type="button" aria-label="Drawer card" 
+    data-popup-title="DILAB" 
+    data-popup-short="Toevoegingen aan DIPPER binnen het DI-LAB." 
+    data-popup-big="Binnen het DI-LAB heb ik gewerkt aan een zelf gemaakt programma genaamd DIPPER, dit is een programma dat gebruikt wordt om research projects en dergelijke op te slaan zodat ze dat als lectoraat weer terug kunnen vinden
+    
+Probleem: DIPPER was een programma dat goed voor zijn taak was om dingen op te slaan, maar het was nogsteeds moeilijk om alle data op te halen en heel vaak was het ook verkeerd opgeschreven.
+    
+Doelstelling: Mijn doel was eerst om het meer gebruikersvriendelijk te maken. Dit is vooral gedaan door de mobiele versie te ontwerpen en te implementeren. Daarnaast heb ik ook nog gewerkt aan een complex regex systeem die dynamisch binnen het systeem gemaakt kan worden en niet hardegecode in de code staat. Dit is allemaal opgeslagen binnen een MongoDB database. Ook heb ik hiermee een dashboard gemaakt wat helemaal dynamisch in de database staat, er staat dus niks in de code en je kan makkelijk op de website zelf eentje aanmaken.">
+        <img src="/static/pictures/dilablogo.png" alt="DILAB logo">
+    </button>
+    <button class="drawer-card-btn-right" type="button" aria-label="Volkstuin logo" 
+    data-popup-title="Volkstuinvereniging Sittard" 
+    data-popup-short="Meehelpen bij het maken van een nieuwe website voor de Volkstuinvereniging Sittard." 
+    data-popup-big="Probleemstelling: De huidige website van de Volkstuinvereniging Sittard was heel slordig en niet handig voor de oudere medewerkers van het VTV. Er werden nogsteeds aanvragen gedaan via de mail en dit werd heel vaak verkeerd ingevuld.
+    
+Doelstelling: Mijn doel was om een nieuwe website te maken die makkelijk te gebruiken is voor de oudere medewerkers van het VTV. Hier was dus het plan om een plattegrond te maken wat overzichtbaar was voor de penningsmeester en makkelijk te onderhouden was. Wat veel tijd bespaard voor de vrijwilligers.">
+        <img src="/static/pictures/logo-volkstuinverenigingsittard-512x512-white.png" alt="Volkstuin logo">
+    </button>
+    <button class="drawer-card-btn-wartortle" type="button" aria-label="Wartortle" 
+    data-popup-title="Wartortle" 
+    data-popup-short="Short description for Wartortle item." 
+    data-popup-big="Big description area for Wartortle.\n\nUse this section for a longer story, notes, or item details.">
+        <img src="/static/pictures/250px-0008Wartortle.png" alt="Wartortle">
+    </button>
+
+    <img class="starter-image" src="/static/pictures/coffeetalk-starter.png" alt="CoffeeTalk Starter transition screen">
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="/static/pictures/Timeline 1 (1).mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="content">
+        
+    </div>
+
+    <div class="seat-row" aria-label="Character seat">
+        <div class="seat-sprite" aria-label="Seat 1">
+            <img class="idle" src="/static/pictures/agentspriteidle.png" alt="Character idle sprite">
+            <img class="hover" src="/static/pictures/agentspritehover.png" alt="Character hover sprite">
+        </div>
+    </div>
+
+    <div class="oldman-seat-row" aria-label="Old man seat">
+        <div class="oldman-seat-sprite" aria-label="Old man seat 1" tabindex="0" role="button" title="Click to zoom drawer">
+            <img class="idle" src="/static/pictures/oldmanspriteidle.png" alt="Old man idle sprite">
+            <img class="hover" src="/static/pictures/oldmanspritehover.png" alt="Old man hover sprite">
+        </div>
+    </div>
+
+    <div class="astronaut-seat-row" aria-label="Astronaut seat">
+        <div class="astronaut-seat-sprite" aria-label="Astronaut seat 1">
+            <img class="idle" src="/static/pictures/astronautidlesprite.png" alt="Astronaut idle sprite">
+            <img class="hover" src="/static/pictures/austronauthoversprite.png" alt="Astronaut hover sprite">
+        </div>
+    </div>
+
+    <div class="whitehair-seat-row" aria-label="White hair seat">
+        <div class="whitehair-seat-sprite" aria-label="White hair seat 1" tabindex="0" role="button" title="Open recipe panel">
+            <img class="idle" src="/static/pictures/whitehairidlesprite.png" alt="White hair idle sprite">
+            <img class="hover" src="/static/pictures/whitehairhoversprite.png" alt="White hair hover sprite">
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <aside class="recipe-panel" aria-label="Recipe panel" aria-hidden="true">
+        <img class="recipe-panel-image" src="/static/pictures/recipe part.png" alt="Recipe part">
+        <div class="ingredient-layer" aria-label="Recipe ingredients">
+            <button class="ingredient-btn ingredient-coffeejar" type="button" aria-label="Coffee jar" data-ingredient-code="B1-K1-W1">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofgingerbreadcoffee.png,cupofgrinchlatte.png,cupofmatchalatte.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/coffeecoffeetalk.png" alt="Coffee jar">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedcoffeecoffeetalk.png" alt="Coffee jar selected">
+                <span class="ingredient-tag">B1-K1-W1: Plant werkzaamheden en bewaakt de voortgang</span>
+            </button>
+            <button class="ingredient-btn ingredient-minttea" type="button" aria-label="Mint tea" data-ingredient-code="B1-K1-W2">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofminttea.png,cupofsleepymilktea.png,cupofswirlymilktea.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/mintea.png" alt="Mint tea">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedminttea.png" alt="Mint tea selected">
+                <span class="ingredient-tag">B1-K1-W2: Ontwerpt software</span>
+            </button>
+            <button class="ingredient-btn ingredient-tea" type="button" aria-label="Tea" data-ingredient-code="B1-K1-W3">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofanijstea.png,cupofhoneyteadark.png,cupoftealattefox.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/teacoffeetime.png" alt="Tea leaves">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedteacoffeetime.png" alt="Tea leaves selected">
+                <span class="ingredient-tag">B1-K1-W3: Realiseert (onderdelen van software)</span>
+            </button>
+            <button class="ingredient-btn ingredient-choco" type="button" aria-label="Chocolate powder" data-ingredient-code="B1-K2-W1">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofchurrochocolate.png,cupofheartchocolate.png,cupofunionjackchocolate.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/chocopngcoffeetime.png" alt="Chocolate powder">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedchococoffeetime.png" alt="Chocolate powder selected">
+                <span class="ingredient-tag">B1-K2-W1: Voert overleg</span>
+            </button>
+            <button class="ingredient-btn ingredient-bluetea" type="button" aria-label="Blue tea" data-ingredient-code="B1-K1-W4">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofblueflowertea.png,cupofbluemarshmallow.png,cupofswirlybluetea.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/bluetea.png" alt="Blue tea">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedbluetea.png" alt="Blue tea selected">
+                <span class="ingredient-tag">B1-K1-W4: Test software</span>
+            </button>
+            <button class="ingredient-btn ingredient-redtea" type="button" aria-label="Hibiscus tea" data-ingredient-code="B1-K1-W5">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofredtea.png,cupofredtealatte.png,cupofredteapie.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/redtea.png" alt="Hibiscus tea">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedredtea.png" alt="Hibiscus tea selected">
+                <span class="ingredient-tag">B1-K1-W5: Doet verbetervoorstellen voor software</span>
+            </button>
+            <button class="ingredient-btn ingredient-cinnamon" type="button" aria-label="Cinnamon" data-ingredient-code="B1-K2-W2">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupofcinnamonchristmas.png,cupofcinnamontea.png,cupofteacinnamon.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/cinnamon.png" alt="Cinnamon">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedcinnamon.png" alt="Cinnamon selected">
+                <span class="ingredient-tag">B1-K2-W2: Presenteert het opgeleverde werk</span>
+            </button>
+            <button class="ingredient-btn ingredient-milk" type="button" aria-label="Milk" data-ingredient-code="B1-K2-W3">
+                <span class="visually-hidden ingredient-cups-data" data-cups="cupoffivestarmatcha.png,cupofmatchalatte.png,cupofsleepymilktea.png"></span>
+                <img class="ingredient-idle" src="/static/pictures/ingriedients/coffeetimemilk.png" alt="Milk">
+                <img class="ingredient-hover" src="/static/pictures/ingriedients/chargedcoffeetimemilk.png" alt="Milk selected">
+                <span class="ingredient-tag">B1-K2-W3: Reflecteert op het werk</span>
+            </button>
+        </div>
+    </aside>
+
+    <div id="cinematic-overlay" class="cinematic-overlay" aria-hidden="true">
+        <div class="cinematic-panels">
+            <div class="cinematic-panel cinematic-panel-left">
+                <img src="/static/pictures/transitions/brewing.png" alt="">
+            </div>
+            <div class="cinematic-panel cinematic-panel-middle">
+                <img src="/static/pictures/transitions/coffeesifting.png" alt="">
+            </div>
+            <div class="cinematic-panel cinematic-panel-right">
+                <img src="/static/pictures/transitions/milkpouring.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div id="cinematic-ding" class="cinematic-ding" aria-hidden="true">
+        <img src="/static/pictures/transitions/dingthefriesaredone.png" alt="">
+        <div class="ding-cups" aria-label="Selected coffee cups">
+            <button class="ding-cup-slot ding-cup-left" type="button" aria-label="Open first coffee cup details">
+                <img class="ding-cup" src="" alt="">
+            </button>
+            <button class="ding-cup-slot ding-cup-center" type="button" aria-label="Open second coffee cup details">
+                <img class="ding-cup" src="" alt="">
+            </button>
+            <button class="ding-cup-slot ding-cup-right" type="button" aria-label="Open third coffee cup details">
+                <img class="ding-cup" src="" alt="">
+            </button>
+        </div>
+        <div id="cup-detail-panel" class="cup-detail-panel" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="cup-detail-title" hidden>
+            <button id="cup-detail-close" class="cup-detail-close" type="button" aria-label="Close cup details">Close</button>
+            <div class="cup-detail-zoom">
+                <img id="cup-detail-image" class="cup-detail-image" src="" alt="">
+            </div>
+            <div class="cup-detail-copy">
+                <p class="cup-detail-eyebrow">Cup Detail</p>
+                <h3 id="cup-detail-title" class="cup-detail-title">Selected Cup</h3>
+                <p id="cup-detail-text" class="cup-detail-text">Choose a cup to see its details.</p>
+                <div id="cup-detail-documents" class="cup-detail-documents" hidden>
+                    <p class="cup-detail-documents-title">Documents</p>
+                    <div id="cup-detail-doc-list" class="cup-detail-doc-list"></div>
+                </div>
+                <div class="cup-detail-media-shell">
+                    <img id="cup-detail-media-image" class="cup-detail-media cup-detail-media-image" src="" alt="" hidden>
+                    <video id="cup-detail-media-video" class="cup-detail-media cup-detail-media-video" controls preload="metadata" hidden></video>
+                    <iframe id="cup-detail-media-pdf" class="cup-detail-media cup-detail-media-pdf" title="Cup detail PDF" hidden></iframe>
+                    <p id="cup-detail-media-placeholder" class="cup-detail-media-placeholder">Add an image, video, or PDF for this cup in static/cinematic.js.</p>
+                </div>
+            </div>
+        </div>
+        <button id="cinematic-ding-back" class="ding-back-btn" type="button" aria-label="Go back">
+            <img src="/static/pictures/magnifyingglasscoffeetalk.png" alt="Back">
+        </button>
+    </div>
+
+    <div id="drawer-popup-overlay" class="drawer-popup-overlay" hidden>
+        <div class="drawer-popup" role="dialog" aria-modal="true" aria-labelledby="drawer-popup-title">
+            <h2 id="drawer-popup-title" class="drawer-popup-title">Title</h2>
+            <p id="drawer-popup-short" class="drawer-popup-short">Short description.</p>
+            <div id="drawer-popup-big" class="drawer-popup-big">Big description goes here.</div>
+        </div>
+    </div>
+
+    <div id="phone-popup" aria-hidden="true">
+        <div class="phone-popup-shell">
+            <img src="/static/pictures/phone/phone.png" alt="Telefoon" class="phone-popup-img">
+
+            <button class="phone-popup-overmij-btn" type="button" data-app-target="overmij" aria-label="Open Over mij app">
+                <img src="/static/pictures/phone/over mij.png" alt="Over mij" class="phone-popup-overmij-img">
+            </button>
+            <button class="phone-popup-socials-btn" type="button" data-app-target="socials" aria-label="Open Socials app">
+                <img src="/static/pictures/phone/socials.png" alt="Socials" class="phone-popup-socials-img">
+            </button>
+            <button class="phone-popup-contact-btn" type="button" data-app-target="contact" aria-label="Open Contact app">
+                <img src="/static/pictures/phone/contact.png" alt="Contact" class="phone-popup-contact-img">
+            </button>
+            <button class="phone-popup-spotify-btn" type="button" data-app-target="spotify" aria-label="Open Spotify app">
+                <img src="/static/pictures/phone/spotify.png" alt="Spotify" class="phone-popup-spotify-img">
+            </button>
+
+            <div class="phone-app-overlay" aria-hidden="true">
+                <button class="phone-app-close" type="button" aria-label="Close app">Back</button>
+
+                <section class="phone-app-screen" data-app="overmij">
+                    <div class="phone-about-card">
+                        <div class="phone-about-header">
+                            <div class="phone-about-copy">
+                                <p class="phone-about-eyebrow">Over mij</p>
+                                <h3>Omar de Torbal</h3>
+                                <p class="phone-about-description">Gepassioneerde softwareontwikkelaar met vooral ervaring in webontwikkeling.</p>
+                            </div>
+                            <div class="phone-about-photo-frame">
+                                <img src="/static/pictures/phone/over mij.png" alt="Vervang deze afbeelding door je eigen foto" class="phone-about-photo">
+                            </div>
+                        </div>
+                        <p class="phone-about-note">Hoi! Mijn naam is Omar en ik ben 19 jaar oud, Mijn hobbies zijn dingen zoals gamen en lekker uitgaan met vrienden. Ook ben ik mezelf aan het verdiepen in richtingen zoals photografie en tekenen. Ik wil doorgroeien in mijn vakgebied om hopelijk mijn creativiteit verder toe te passen en in de toekomst iets voor mijzelf te maken zoals een game, of dergelijke.</p>
+                    </div>
+                </section>
+
+                <section class="phone-app-screen" data-app="socials">
+                    <h3>Socials</h3>
+                    <p>Pas deze inhoud aan in index.html.</p>
+                </section>
+
+                <section class="phone-app-screen" data-app="contact">
+                    <h3>Contact</h3>
+                    <p>Pas deze inhoud aan in index.html.</p>
+                </section>
+
+                <section class="phone-app-screen" data-app="spotify">
+                    <h3>Spotify</h3>
+                    <p>Pas deze inhoud aan in index.html.</p>
+                </section>
+            </div>
+
+            <div class="phone-popup-top"></div>
+        </div>
+    </div>
+
+</body>
+</html>

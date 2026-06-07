@@ -1,0 +1,67 @@
+.drawer-card-btn,
+.drawer-card-btn-right,
+.drawer-card-btn-wartortle {
+    position: fixed;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.95)) drop-shadow(0 10px 18px rgba(0, 0, 0, 0.9));
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+body.drawer-zoom-active .drawer-card-btn,
+body.drawer-zoom-active .drawer-card-btn-right,
+body.drawer-zoom-active .drawer-card-btn-wartortle {
+    pointer-events: auto;
+}
+
+.drawer-card-btn {
+    left: 1180px;
+    bottom: -5px;
+    width: 120px;
+    transform: rotate(-11deg);
+}
+
+.drawer-card-btn-right {
+    left: 1320px;
+    bottom: 5px;
+    width: 100px;
+    transform: rotate(9deg);
+}
+
+.drawer-card-btn-wartortle {
+    left: 1455px;
+    bottom: 1px;
+    width: 110px;
+    transform: rotate(8deg);
+}
+
+.drawer-card-btn:hover,
+.drawer-card-btn-right:hover,
+.drawer-card-btn-wartortle:hover {
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 1)) drop-shadow(0 12px 22px rgba(0, 0, 0, 0.95));
+}
+
+.drawer-card-btn:hover {
+    transform: rotate(-11deg) scale(1.08);
+}
+
+.drawer-card-btn-right:hover {
+    transform: rotate(9deg) scale(1.08);
+}
+
+.drawer-card-btn-wartortle:hover {
+    transform: rotate(8deg) scale(1.08);
+}
+
+.drawer-card-btn img,
+.drawer-card-btn-right img,
+.drawer-card-btn-wartortle img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}

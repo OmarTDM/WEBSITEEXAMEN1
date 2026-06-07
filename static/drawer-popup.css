@@ -1,0 +1,59 @@
+.drawer-popup-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.72);
+    z-index: 100;
+    backdrop-filter: blur(4px);
+}
+
+.drawer-popup-overlay[hidden] {
+    display: none;
+}
+
+.drawer-popup {
+    width: min(760px, 92vw);
+    max-height: 86vh;
+    overflow: auto;
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    border: 3px solid #192381;
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(233, 69, 96, 0.3), 0 24px 60px rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    padding: 28px;
+    font-family: 'Courier New', monospace;
+}
+
+.drawer-popup-title {
+    margin: 0 0 12px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff6b9d;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.drawer-popup-short {
+    margin: 0 0 16px;
+    color: #c4d9ff;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(233, 69, 96, 0.4);
+}
+
+.drawer-popup-big {
+    min-height: 200px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 2px solid #00d4ff;
+    border-radius: 6px;
+    padding: 14px;
+    white-space: pre-wrap;
+    color: #e0ffff;
+    line-height: 1.6;
+    font-size: 0.92rem;
+}

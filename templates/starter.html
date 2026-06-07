@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeTalk Starter</title>
+    <link rel="stylesheet" href="/static/starter.css">
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const startLink = document.querySelector('[data-start-transition]');
+            const transitionScreen = document.querySelector('.starter-transition-screen');
+
+            if (!startLink || !transitionScreen) {
+                return;
+            }
+
+            startLink.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                if (transitionScreen.classList.contains('is-active')) {
+                    return;
+                }
+
+                sessionStorage.setItem('starterTransitionPending', 'true');
+                transitionScreen.classList.add('is-active');
+
+                window.setTimeout(() => {
+                    window.location.href = startLink.href;
+                }, 900);
+            });
+        });
+    </script>
+    <script src="/static/viewport-scale.js" defer></script>
+</head>
+<body>
+    <div class="viewport-stage menu-stage">
+       <!-- <a href="/admin" title="Admin Panel">
+            <img class="admin-btn" src="/static/pictures/adminpanel.png" alt="Admin Panel">
+        </a> -->
+        <video autoplay muted loop playsinline>
+            <source src="/static/pictures/coffetalkbackgroundvideo.mp4" type="video/mp4">
+        </video>
+        <img class="menupicside" src="/static/pictures/logoomarwebsiteexamen1-removebg-preview.png" alt="Logo Side">
+        <div class="menu">
+            <a href="index.html" data-start-transition>START</a>
+            <!-- <a href="#">BEWIJZEN</a>
+            <a href="#">OVER MIJ</a>
+            <a href="#">OPTIONS</a> -->
+        </div>
+        <img class="starter-transition-screen" src="/static/pictures/coffeetalk-starter.png" alt="Starter transition screen">
+    </div>
+</body>
+</html>

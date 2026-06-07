@@ -1,0 +1,38 @@
+.seat-row {
+    position: fixed;
+    left: 1875px;
+    bottom: 355px;
+    transform: none;
+    display: flex;
+    gap: 3vw;
+    z-index: 1;
+}
+
+.seat-sprite {
+    position: relative;
+    width: 700px;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+}
+
+.seat-sprite img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+    transition: opacity 0.15s ease;
+}
+
+.seat-sprite .hover {
+    opacity: 0;
+}
+
+.seat-sprite:hover .idle {
+    opacity: 0;
+}
+
+.seat-sprite:hover .hover {
+    opacity: 1;
+}

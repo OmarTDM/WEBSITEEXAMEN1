@@ -1,0 +1,23 @@
+.zoom-back-btn {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 56px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 30;
+    display: none;
+}
+
+.zoom-back-btn img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+body.drawer-zoom-active .zoom-back-btn {
+    display: block;
+}

@@ -1,0 +1,10 @@
+.counter {
+    position: fixed;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+    image-rendering: pixelated;
+}

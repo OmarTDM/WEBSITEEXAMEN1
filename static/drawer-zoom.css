@@ -1,0 +1,9 @@
+.scene-root {
+    transform: translate3d(0, 0, 0) scale(1);
+    transform-origin: center center;
+    transition: transform 0.45s ease;
+}
+
+body.drawer-zoom-active .scene-root {
+    transform: translate(-300px, -2700px) scale(4);
+}
