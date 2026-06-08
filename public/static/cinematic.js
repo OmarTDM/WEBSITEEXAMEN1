@@ -136,9 +136,7 @@
 
         return {
             title: override.title || baseTitle,
-            description:
-                override.description ||
-                `Replace this text with your own note for ${baseTitle}. You can also add an image, video, or PDF for this cup in static/cinematic.js.`,
+            description: override.description || '',
             mediaType: override.mediaType || '',
             mediaSrc: override.mediaSrc || '',
             mediaAlt: override.mediaAlt || baseTitle,
@@ -331,9 +329,13 @@
         }
 
         dingScreen.classList.remove('ding-detail-open');
+        if (dingBack && dingScreen.classList.contains('ding-visible')) {
+            dingBack.classList.add('ding-back-visible');
+        }
         detailPanel.classList.remove('is-visible');
         detailPanel.setAttribute('aria-hidden', 'true');
         detailPanel.hidden = true;
+        detailText.hidden = false;
         clearDocumentButtons();
         clearDetailMedia();
     };
@@ -359,12 +361,14 @@
         detailImage.src = cupImage.getAttribute('src');
         detailImage.alt = detail.title;
         detailTitle.textContent = detail.title;
-        detailText.textContent = activeIngredientLabel
-            ? `${detail.description} Documents sorted under ${activeIngredientLabel} are listed below when available.`
-            : detail.description;
+        detailText.textContent = detail.description;
+        detailText.hidden = !detail.description;
         renderIngredientDocuments(detail, cupIndex);
 
         dingScreen.classList.add('ding-detail-open');
+        if (dingBack) {
+            dingBack.classList.remove('ding-back-visible');
+        }
         detailPanel.hidden = false;
         detailPanel.classList.add('is-visible');
         detailPanel.setAttribute('aria-hidden', 'false');
