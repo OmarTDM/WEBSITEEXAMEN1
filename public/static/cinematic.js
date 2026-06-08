@@ -28,11 +28,28 @@
     const detailMediaVideo = document.getElementById('cup-detail-media-video');
     const detailMediaPdf = document.getElementById('cup-detail-media-pdf');
     const detailMediaPlaceholder = document.getElementById('cup-detail-media-placeholder');
+    const imageZoomOverlay = document.createElement('div');
+    const imageZoomViewport = document.createElement('div');
+    const imageZoomImage = document.createElement('img');
+    const imageZoomToolbar = document.createElement('div');
+    const imageZoomHint = document.createElement('p');
+    const imageZoomOutButton = document.createElement('button');
+    const imageZoomInButton = document.createElement('button');
+    const imageZoomResetButton = document.createElement('button');
+    const imageZoomCloseButton = document.createElement('button');
     let running = false;
     let selectedCupButton = null;
     let activeIngredientCode = '';
     let activeIngredientLabel = '';
     let activeCupDocuments = dingCupButtons.map(() => []);
+    let imageZoomScale = 1;
+    let imageZoomTranslateX = 0;
+    let imageZoomTranslateY = 0;
+    let imageZoomPointerId = null;
+    let imageZoomStartX = 0;
+    let imageZoomStartY = 0;
+    let imageZoomStartTranslateX = 0;
+    let imageZoomStartTranslateY = 0;
 
     const cupTitleMap = {
         'cupofgingerbreadcoffee.png': 'Gingerbread Coffee',
@@ -143,6 +160,130 @@
         };
     };
 
+    imageZoomOverlay.className = 'cup-image-zoom-overlay';
+    imageZoomOverlay.hidden = true;
+    imageZoomOverlay.setAttribute('aria-hidden', 'true');
+
+    imageZoomViewport.className = 'cup-image-zoom-viewport';
+    imageZoomViewport.tabIndex = 0;
+
+    imageZoomImage.className = 'cup-image-zoom-image';
+    imageZoomImage.alt = '';
+    imageZoomImage.draggable = false;
+
+    imageZoomToolbar.className = 'cup-image-zoom-toolbar';
+
+    imageZoomHint.className = 'cup-image-zoom-hint';
+    imageZoomHint.textContent = 'Scroll om te zoomen en sleep om te bewegen.';
+
+    imageZoomOutButton.type = 'button';
+    imageZoomOutButton.className = 'cup-image-zoom-button';
+    imageZoomOutButton.textContent = '-';
+    imageZoomOutButton.setAttribute('aria-label', 'Zoom uit');
+
+    imageZoomInButton.type = 'button';
+    imageZoomInButton.className = 'cup-image-zoom-button';
+    imageZoomInButton.textContent = '+';
+    imageZoomInButton.setAttribute('aria-label', 'Zoom in');
+
+    imageZoomResetButton.type = 'button';
+    imageZoomResetButton.className = 'cup-image-zoom-button';
+    imageZoomResetButton.textContent = 'Reset';
+
+    imageZoomCloseButton.type = 'button';
+    imageZoomCloseButton.className = 'cup-image-zoom-button cup-image-zoom-close';
+    imageZoomCloseButton.textContent = 'Sluiten';
+
+    imageZoomToolbar.append(imageZoomHint, imageZoomOutButton, imageZoomInButton, imageZoomResetButton, imageZoomCloseButton);
+    imageZoomViewport.appendChild(imageZoomImage);
+    imageZoomOverlay.append(imageZoomViewport, imageZoomToolbar);
+    document.body.appendChild(imageZoomOverlay);
+
+    const clampImageZoomTranslation = () => {
+        const viewportRect = imageZoomViewport.getBoundingClientRect();
+        const naturalWidth = imageZoomImage.naturalWidth || viewportRect.width;
+        const naturalHeight = imageZoomImage.naturalHeight || viewportRect.height;
+
+        if (!viewportRect.width || !viewportRect.height || !naturalWidth || !naturalHeight) {
+            imageZoomTranslateX = 0;
+            imageZoomTranslateY = 0;
+            return;
+        }
+
+        const baseScale = Math.min(viewportRect.width / naturalWidth, viewportRect.height / naturalHeight);
+        const renderedWidth = naturalWidth * baseScale * imageZoomScale;
+        const renderedHeight = naturalHeight * baseScale * imageZoomScale;
+        const maxOffsetX = Math.max(0, (renderedWidth - viewportRect.width) / 2);
+        const maxOffsetY = Math.max(0, (renderedHeight - viewportRect.height) / 2);
+
+        imageZoomTranslateX = Math.min(maxOffsetX, Math.max(-maxOffsetX, imageZoomTranslateX));
+        imageZoomTranslateY = Math.min(maxOffsetY, Math.max(-maxOffsetY, imageZoomTranslateY));
+    };
+
+    const applyImageZoomTransform = () => {
+        clampImageZoomTranslation();
+        imageZoomViewport.classList.toggle('is-draggable', imageZoomScale > 1.02);
+        imageZoomImage.style.transform = `translate(${imageZoomTranslateX}px, ${imageZoomTranslateY}px) scale(${imageZoomScale})`;
+    };
+
+    const setImageZoomScale = (nextScale, pointerX = 0, pointerY = 0) => {
+        const clampedScale = Math.min(6, Math.max(1, nextScale));
+        const previousScale = imageZoomScale;
+
+        if (Math.abs(clampedScale - previousScale) < 0.001) {
+            return;
+        }
+
+        const viewportRect = imageZoomViewport.getBoundingClientRect();
+        const anchorX = pointerX - viewportRect.left - viewportRect.width / 2;
+        const anchorY = pointerY - viewportRect.top - viewportRect.height / 2;
+        const scaleRatio = clampedScale / previousScale;
+
+        imageZoomScale = clampedScale;
+        imageZoomTranslateX = (imageZoomTranslateX - anchorX) * scaleRatio + anchorX;
+        imageZoomTranslateY = (imageZoomTranslateY - anchorY) * scaleRatio + anchorY;
+
+        if (imageZoomScale === 1) {
+            imageZoomTranslateX = 0;
+            imageZoomTranslateY = 0;
+        }
+
+        applyImageZoomTransform();
+    };
+
+    const resetImageZoom = () => {
+        imageZoomScale = 1;
+        imageZoomTranslateX = 0;
+        imageZoomTranslateY = 0;
+        applyImageZoomTransform();
+    };
+
+    const closeImageZoom = () => {
+        imageZoomOverlay.hidden = true;
+        imageZoomOverlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('cup-image-zoom-open');
+        imageZoomImage.removeAttribute('src');
+        imageZoomImage.alt = '';
+        resetImageZoom();
+    };
+
+    const openImageZoom = (src, alt) => {
+        if (!src) {
+            return;
+        }
+
+        imageZoomImage.src = src;
+        imageZoomImage.alt = alt || '';
+        imageZoomOverlay.hidden = false;
+        imageZoomOverlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('cup-image-zoom-open');
+        resetImageZoom();
+        requestAnimationFrame(() => {
+            imageZoomViewport.focus();
+            applyImageZoomTransform();
+        });
+    };
+
     const clearDetailMedia = () => {
         if (detailPanel) {
             detailPanel.dataset.mediaType = 'none';
@@ -163,6 +304,7 @@
         detailMediaVideo.removeAttribute('src');
         detailMediaVideo.load();
         detailMediaPdf.removeAttribute('src');
+        detailMediaImage.removeAttribute('data-zoomable');
     };
 
     const clearDocumentButtons = () => {
@@ -255,6 +397,7 @@
             detailMediaImage.hidden = false;
             detailMediaImage.src = detail.mediaSrc;
             detailMediaImage.alt = detail.mediaAlt;
+            detailMediaImage.dataset.zoomable = 'true';
             return;
         }
 
@@ -323,6 +466,8 @@
     };
 
     const closeCupDetail = () => {
+        closeImageZoom();
+
         if (selectedCupButton) {
             selectedCupButton.classList.remove('is-selected');
             selectedCupButton = null;
@@ -425,6 +570,74 @@
         detailClose.addEventListener('click', closeCupDetail);
     }
 
+    detailMediaImage.addEventListener('click', () => {
+        if (detailMediaImage.hidden || !detailMediaImage.getAttribute('src')) {
+            return;
+        }
+
+        openImageZoom(detailMediaImage.getAttribute('src'), detailMediaImage.alt);
+    });
+
+    imageZoomOverlay.addEventListener('click', (event) => {
+        if (event.target === imageZoomOverlay) {
+            closeImageZoom();
+        }
+    });
+
+    imageZoomCloseButton.addEventListener('click', closeImageZoom);
+    imageZoomResetButton.addEventListener('click', resetImageZoom);
+    imageZoomInButton.addEventListener('click', () => {
+        const viewportRect = imageZoomViewport.getBoundingClientRect();
+        setImageZoomScale(imageZoomScale + 0.35, viewportRect.left + viewportRect.width / 2, viewportRect.top + viewportRect.height / 2);
+    });
+    imageZoomOutButton.addEventListener('click', () => {
+        const viewportRect = imageZoomViewport.getBoundingClientRect();
+        setImageZoomScale(imageZoomScale - 0.35, viewportRect.left + viewportRect.width / 2, viewportRect.top + viewportRect.height / 2);
+    });
+
+    imageZoomViewport.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        const delta = event.deltaY < 0 ? 0.18 : -0.18;
+        setImageZoomScale(imageZoomScale + delta, event.clientX, event.clientY);
+    }, { passive: false });
+
+    imageZoomViewport.addEventListener('pointerdown', (event) => {
+        if (imageZoomScale <= 1.02) {
+            return;
+        }
+
+        imageZoomPointerId = event.pointerId;
+        imageZoomStartX = event.clientX;
+        imageZoomStartY = event.clientY;
+        imageZoomStartTranslateX = imageZoomTranslateX;
+        imageZoomStartTranslateY = imageZoomTranslateY;
+        imageZoomViewport.classList.add('is-dragging');
+        imageZoomViewport.setPointerCapture(event.pointerId);
+    });
+
+    imageZoomViewport.addEventListener('pointermove', (event) => {
+        if (imageZoomPointerId !== event.pointerId) {
+            return;
+        }
+
+        imageZoomTranslateX = imageZoomStartTranslateX + (event.clientX - imageZoomStartX);
+        imageZoomTranslateY = imageZoomStartTranslateY + (event.clientY - imageZoomStartY);
+        applyImageZoomTransform();
+    });
+
+    const releaseImageZoomPointer = (event) => {
+        if (imageZoomPointerId !== event.pointerId) {
+            return;
+        }
+
+        imageZoomViewport.classList.remove('is-dragging');
+        imageZoomViewport.releasePointerCapture(event.pointerId);
+        imageZoomPointerId = null;
+    };
+
+    imageZoomViewport.addEventListener('pointerup', releaseImageZoomPointer);
+    imageZoomViewport.addEventListener('pointercancel', releaseImageZoomPointer);
+
     dingCupButtons.forEach((button) => {
         button.addEventListener('click', () => {
             if (!button.dataset.cupFile) {
@@ -441,8 +654,19 @@
     });
 
     document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !imageZoomOverlay.hidden) {
+            closeImageZoom();
+            return;
+        }
+
         if (event.key === 'Escape' && detailPanel.classList.contains('is-visible')) {
             closeCupDetail();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (!imageZoomOverlay.hidden) {
+            applyImageZoomTransform();
         }
     });
 

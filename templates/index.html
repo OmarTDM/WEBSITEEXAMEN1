@@ -270,7 +270,7 @@ Doelstelling: Mijn doel was om een nieuwe website te maken die makkelijk te gebr
                                 <p class="phone-about-description">Gepassioneerde softwareontwikkelaar met vooral ervaring in webontwikkeling.</p>
                             </div>
                             <div class="phone-about-photo-frame">
-                                <img src="/static/pictures/phone/over mij.png" alt="Vervang deze afbeelding door je eigen foto" class="phone-about-photo">
+                                <img src="{{ url_for('static', filename='pictures/fotomijkat.jpg') }}" alt="Vervang deze afbeelding door je eigen foto" class="phone-about-photo">
                             </div>
                         </div>
                         <p class="phone-about-note">Hoi! Mijn naam is Omar en ik ben 19 jaar oud, Mijn hobbies zijn dingen zoals gamen en lekker uitgaan met vrienden. Ook ben ik mezelf aan het verdiepen in richtingen zoals photografie en tekenen. Ik wil doorgroeien in mijn vakgebied om hopelijk mijn creativiteit verder toe te passen en in de toekomst iets voor mijzelf te maken zoals een game, of dergelijke.</p>
@@ -278,18 +278,73 @@ Doelstelling: Mijn doel was om een nieuwe website te maken die makkelijk te gebr
                 </section>
 
                 <section class="phone-app-screen" data-app="socials">
-                    <h3>Socials</h3>
-                    <p>Pas deze inhoud aan in index.html.</p>
+                    <div class="phone-socials-card">
+                        <p class="phone-socials-eyebrow">Socials</p>
+                        <h3>Vind mij online</h3>
+                        <div class="phone-socials-list">
+                            <article class="phone-social-item">
+                                <div class="phone-social-icon-frame">
+                                    <img src="{{ url_for('static', filename='pictures/LinkedIn_logo_initials.png') }}" alt="LinkedIn logo" class="phone-social-icon">
+                                </div>
+                                <div class="phone-social-copy">
+                                    <h4>LinkedIn "Omar de Torbal"</h4>
+                                    <p>Voor mijn professionele profiel, projecten en werkervaring.</p>
+                                </div>
+                            </article>
+                            <article class="phone-social-item">
+                                <div class="phone-social-icon-frame">
+                                    <img src="{{ url_for('static', filename='pictures/github-logo-png_seeklogo-304612.png') }}" alt="GitHub logo" class="phone-social-icon">
+                                </div>
+                                <div class="phone-social-copy">
+                                    <h4>GitHub "OmarTDM"</h4>
+                                    <p>Hier staan mijn repositories, codevoorbeelden en technische experimenten.</p>
+                                </div>
+                            </article>
+                            <article class="phone-social-item">
+                                <div class="phone-social-icon-frame">
+                                    <img src="{{ url_for('static', filename='pictures/Microsoft_Office_Outlook_(2018–2024).svg.png') }}" alt="Outlook logo" class="phone-social-icon">
+                                </div>
+                                <div class="phone-social-copy">
+                                    <h4>Outlook "514278@Vistacollege.nl"</h4>
+                                    <p>Gebruik dit voor e-mailcontact en formele communicatie.</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="phone-app-screen" data-app="contact">
-                    <h3>Contact</h3>
-                    <p>Pas deze inhoud aan in index.html.</p>
+                    <div class="phone-contact-card">
+                        <p class="phone-contact-eyebrow">Contact</p>
+                        <h3>Stuur mij een bericht</h3>
+                        <p class="phone-contact-intro">Wil je contact opnemen over een project, stage of samenwerking? Vul hieronder je bericht in. Bij verzenden opent jouw e-mailapp een nieuw bericht naar mijn schooladres.</p>
+                        <form class="phone-contact-form" action="mailto:514278@vistacollege.nl" method="post" enctype="text/plain">
+                            <label class="phone-contact-field">
+                                <span>Naam</span>
+                                <input type="text" name="Naam" placeholder="Jouw naam" required>
+                            </label>
+                            <label class="phone-contact-field">
+                                <span>E-mailadres</span>
+                                <input type="email" name="E-mail" placeholder="jij@example.com" required>
+                            </label>
+                            <label class="phone-contact-field">
+                                <span>Onderwerp</span>
+                                <input type="text" name="Onderwerp" placeholder="Waar gaat je bericht over?" required>
+                            </label>
+                            <label class="phone-contact-field">
+                                <span>Bericht</span>
+                                <textarea name="Bericht" rows="6" placeholder="Typ hier je bericht..." required></textarea>
+                            </label>
+                            <button class="phone-contact-submit" type="submit">Open e-mailbericht</button>
+                        </form>
+                        <p class="phone-contact-note">Direct mailen kan ook via 514278@vistacollege.nl.</p>
+                    </div>
                 </section>
 
                 <section class="phone-app-screen" data-app="spotify">
-                    <h3>Spotify</h3>
-                    <p>Pas deze inhoud aan in index.html.</p>
+                    <div class="phone-spotify-fill">
+                        <img src="{{ url_for('static', filename='pictures/kimjihoon.jpg') }}" alt="Kim Jihoon" class="phone-spotify-image">
+                    </div>
                 </section>
             </div>
 

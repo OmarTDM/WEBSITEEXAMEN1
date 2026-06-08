@@ -208,6 +208,186 @@
     color: #7b604e;
 }
 
+.phone-socials-card {
+    min-height: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #fbfcff 0%, #eef3ff 100%);
+    border: 1px solid #d9e3ff;
+    border-radius: 24px;
+    color: #1d2a44;
+}
+
+.phone-socials-eyebrow {
+    margin: 0 0 8px;
+    font: 600 12px/1.2 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5a6f9c;
+}
+
+.phone-socials-card h3 {
+    margin: 0 0 18px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 34px;
+    line-height: 1.1;
+    color: #18233b;
+}
+
+.phone-socials-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.phone-social-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(110, 133, 187, 0.2);
+    box-shadow: 0 10px 20px rgba(44, 63, 105, 0.08);
+}
+
+.phone-social-icon-frame {
+    flex: 0 0 88px;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 22px;
+    background: linear-gradient(145deg, #ffffff 0%, #dfe8ff 100%);
+}
+
+.phone-social-icon {
+    width: 56px;
+    height: 56px;
+    display: block;
+    object-fit: contain;
+}
+
+.phone-social-copy {
+    min-width: 0;
+}
+
+.phone-social-copy h4 {
+    margin: 0 0 6px;
+    font: 700 24px/1.2 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #1b2944;
+}
+
+.phone-social-copy p {
+    margin: 0;
+    font: 500 18px/1.5 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #5f6d87;
+}
+
+.phone-contact-card {
+    min-height: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, #fffaf7 0%, #f8ede3 100%);
+    border: 1px solid #ead7c8;
+    border-radius: 24px;
+    color: #3e2619;
+}
+
+.phone-contact-eyebrow {
+    margin: 0 0 8px;
+    font: 600 12px/1.2 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #926648;
+}
+
+.phone-contact-card h3 {
+    margin: 0 0 14px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 34px;
+    line-height: 1.1;
+    color: #2d1b12;
+}
+
+.phone-contact-intro {
+    margin: 0 0 20px;
+    font: 500 18px/1.6 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #6f5140;
+}
+
+.phone-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.phone-contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font: 600 16px/1.3 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #5d3d2c;
+}
+
+.phone-contact-field input,
+.phone-contact-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d7bea9;
+    border-radius: 16px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.92);
+    font: 500 17px/1.5 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #362117;
+    resize: vertical;
+}
+
+.phone-contact-field input:focus,
+.phone-contact-field textarea:focus {
+    outline: 2px solid rgba(173, 115, 77, 0.28);
+    border-color: #b6794f;
+}
+
+.phone-contact-submit {
+    border: none;
+    border-radius: 18px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #a55f39 0%, #7c3f23 100%);
+    color: #fffaf5;
+    font: 700 18px/1.2 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 14px 24px rgba(97, 46, 22, 0.18);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.phone-contact-submit:hover,
+.phone-contact-submit:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 28px rgba(97, 46, 22, 0.24);
+    outline: none;
+}
+
+.phone-contact-note {
+    margin: 18px 0 0;
+    font: 500 16px/1.5 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #7c5b48;
+}
+
+.phone-spotify-fill {
+    width: 100%;
+    height: 100%;
+}
+
+.phone-spotify-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 24px;
+}
+
 @media (max-width: 720px) {
     .phone-about-header {
         flex-direction: column-reverse;
@@ -219,6 +399,14 @@
 
     .phone-about-description {
         max-width: none;
+    }
+
+    .phone-social-item {
+        align-items: flex-start;
+    }
+
+    .phone-contact-card h3 {
+        font-size: 30px;
     }
 }
 

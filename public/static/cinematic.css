@@ -379,7 +379,11 @@
 .cup-detail-media-image,
 .cup-detail-media-video {
     object-fit: contain;
-    image-rendering: pixelated;
+}
+
+.cup-detail-media-image {
+    image-rendering: auto;
+    cursor: zoom-in;
 }
 
 .cup-detail-media-shell[data-media-type="video"] {
@@ -414,6 +418,98 @@
     margin: 0;
     color: rgba(244, 237, 225, 0.72);
     line-height: 1.55;
+}
+
+.cup-image-zoom-open {
+    overflow: hidden;
+}
+
+.cup-image-zoom-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 360;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 16px;
+    padding: 24px;
+    background: rgba(8, 5, 4, 0.9);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.cup-image-zoom-overlay[hidden] {
+    display: none;
+}
+
+.cup-image-zoom-viewport {
+    min-height: 0;
+    border-radius: 24px;
+    border: 1px solid rgba(247, 234, 179, 0.2);
+    background: rgba(15, 8, 6, 0.92);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    cursor: default;
+}
+
+.cup-image-zoom-viewport.is-draggable {
+    cursor: grab;
+}
+
+.cup-image-zoom-viewport.is-dragging {
+    cursor: grabbing;
+}
+
+.cup-image-zoom-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    image-rendering: auto;
+    transform-origin: center center;
+    transition: transform 0.12s ease;
+    -webkit-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+.cup-image-zoom-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cup-image-zoom-hint {
+    margin: 0 auto 0 0;
+    color: rgba(244, 237, 225, 0.78);
+    font-size: 0.96rem;
+    line-height: 1.5;
+}
+
+.cup-image-zoom-button {
+    border: 1px solid rgba(247, 234, 179, 0.24);
+    border-radius: 999px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    color: #f4ede1;
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.cup-image-zoom-button:hover,
+.cup-image-zoom-button:focus-visible {
+    background: rgba(247, 234, 179, 0.14);
+    border-color: rgba(247, 234, 179, 0.55);
+    transform: translateY(-1px);
+}
+
+.cup-image-zoom-close {
+    background: rgba(247, 234, 179, 0.14);
+    color: #f7eab3;
 }
 
 @media (max-width: 900px) {
@@ -487,6 +583,19 @@
 
     .cup-detail-media-shell[data-media-type="pdf"] .cup-detail-media-pdf {
         min-height: clamp(500px, 74vh, 840px);
+    }
+
+    .cup-image-zoom-overlay {
+        padding: 16px;
+    }
+
+    .cup-image-zoom-toolbar {
+        justify-content: stretch;
+    }
+
+    .cup-image-zoom-hint {
+        flex-basis: 100%;
+        margin-right: 0;
     }
 }
 
