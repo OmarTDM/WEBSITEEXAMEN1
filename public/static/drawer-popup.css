@@ -5,8 +5,9 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: rgba(0, 0, 0, 0.72);
+    background: rgba(10, 6, 5, 0.76);
     z-index: 100;
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(4px);
 }
 
@@ -15,45 +16,63 @@
 }
 
 .drawer-popup {
-    width: min(760px, 92vw);
-    max-height: 86vh;
+    width: min(860px, 94vw);
+    max-height: 88vh;
     overflow: auto;
-    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
-    border: 3px solid #192381;
-    border-radius: 8px;
-    box-shadow: 0 0 40px rgba(233, 69, 96, 0.3), 0 24px 60px rgba(0, 0, 0, 0.85);
-    color: #ffffff;
-    padding: 28px;
-    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, rgba(38, 23, 17, 0.97), rgba(18, 10, 8, 0.98));
+    border: 3px solid rgba(241, 221, 163, 0.78);
+    border-radius: 24px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.56);
+    color: #f4ede1;
+    padding: clamp(20px, 2.2vw, 30px);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .drawer-popup-title {
-    margin: 0 0 12px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ff6b9d;
-    letter-spacing: 1px;
+    margin: 0 0 10px;
+    font-size: clamp(1.6rem, 2.4vw, 2.15rem);
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-weight: 700;
+    color: #f7eab3;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
 }
 
 .drawer-popup-short {
     margin: 0 0 16px;
-    color: #c4d9ff;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(233, 69, 96, 0.4);
+    color: rgba(244, 237, 225, 0.9);
+    font-size: 1rem;
+    line-height: 1.55;
+    padding: 0 0 14px;
+    border-bottom: 1px solid rgba(247, 234, 179, 0.22);
 }
 
 .drawer-popup-big {
-    min-height: 200px;
-    background: rgba(0, 0, 0, 0.35);
-    border: 2px solid #00d4ff;
-    border-radius: 6px;
-    padding: 14px;
+    min-height: 220px;
+    background:
+        radial-gradient(circle at 14% 8%, rgba(255, 255, 255, 0.08), transparent 46%),
+        rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(247, 234, 179, 0.2);
+    border-radius: 16px;
+    padding: clamp(14px, 1.8vw, 20px);
     white-space: pre-wrap;
-    color: #e0ffff;
+    color: rgba(244, 237, 225, 0.94);
     line-height: 1.6;
-    font-size: 0.92rem;
+    font-size: 0.98rem;
+}
+
+.drawer-popup::-webkit-scrollbar {
+    width: 12px;
+}
+
+.drawer-popup::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 999px;
+}
+
+.drawer-popup::-webkit-scrollbar-thumb {
+    background: rgba(247, 234, 179, 0.26);
+    border-radius: 999px;
+    border: 2px solid rgba(18, 10, 8, 0.9);
 }
