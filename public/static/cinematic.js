@@ -14,6 +14,7 @@
 
     const dingBack = document.getElementById('cinematic-ding-back');
     const dingScreen = document.getElementById('cinematic-ding');
+    const recipePanel = document.querySelector('.recipe-panel');
     const dingCupButtons = Array.from(document.querySelectorAll('.ding-cup-slot'));
     const dingCupImages = dingCupButtons.map((button) => button.querySelector('.ding-cup'));
     const detailPanel = document.getElementById('cup-detail-panel');
@@ -40,7 +41,6 @@
     let running = false;
     let selectedCupButton = null;
     let activeIngredientCode = '';
-    let activeIngredientLabel = '';
     let activeCupDocuments = dingCupButtons.map(() => []);
     let imageZoomScale = 1;
     let imageZoomTranslateX = 0;
@@ -50,6 +50,7 @@
     let imageZoomStartY = 0;
     let imageZoomStartTranslateX = 0;
     let imageZoomStartTranslateY = 0;
+    const cinematicTimers = [];
 
     const cupTitleMap = {
         'cupofgingerbreadcoffee.png': 'Gingerbread Coffee',
@@ -284,6 +285,28 @@
         });
     };
 
+    const scheduleCinematicStep = (callback, delay) => {
+        const timerId = window.setTimeout(() => {
+            const timerIndex = cinematicTimers.indexOf(timerId);
+
+            if (timerIndex >= 0) {
+                cinematicTimers.splice(timerIndex, 1);
+            }
+
+            callback();
+        }, delay);
+
+        cinematicTimers.push(timerId);
+        return timerId;
+    };
+
+    const clearCinematicTimers = () => {
+        cinematicTimers.forEach((timerId) => {
+            window.clearTimeout(timerId);
+        });
+        cinematicTimers.length = 0;
+    };
+
     const clearDetailMedia = () => {
         if (detailPanel) {
             detailPanel.dataset.mediaType = 'none';
@@ -304,7 +327,6 @@
         detailMediaVideo.removeAttribute('src');
         detailMediaVideo.load();
         detailMediaPdf.removeAttribute('src');
-        detailMediaImage.removeAttribute('data-zoomable');
     };
 
     const clearDocumentButtons = () => {
@@ -315,6 +337,55 @@
         if (detailDocuments) {
             detailDocuments.hidden = true;
         }
+    };
+
+    const forceCloseDetailMediaState = () => {
+        closeImageZoom();
+
+        if (detailMediaVideo) {
+            detailMediaVideo.pause();
+            detailMediaVideo.removeAttribute('src');
+            detailMediaVideo.load();
+        }
+
+        if (detailMediaPdf) {
+            detailMediaPdf.removeAttribute('src');
+        }
+
+        if (detailMediaImage) {
+            detailMediaImage.removeAttribute('src');
+            detailMediaImage.alt = '';
+            detailMediaImage.hidden = true;
+        }
+
+        if (detailImage) {
+            detailImage.removeAttribute('src');
+            detailImage.alt = '';
+        }
+
+        if (detailPanel) {
+            detailPanel.classList.remove('is-visible');
+            detailPanel.setAttribute('aria-hidden', 'true');
+            detailPanel.hidden = true;
+            detailPanel.dataset.mediaType = 'none';
+        }
+
+        if (detailMediaShell) {
+            detailMediaShell.dataset.mediaType = 'none';
+        }
+
+        clearDocumentButtons();
+
+        if (detailText) {
+            detailText.hidden = false;
+        }
+
+        if (selectedCupButton) {
+            selectedCupButton.classList.remove('is-selected');
+            selectedCupButton = null;
+        }
+
+        dingScreen.classList.remove('ding-detail-open');
     };
 
     const ensureCupDocumentLabel = (button) => {
@@ -397,7 +468,6 @@
             detailMediaImage.hidden = false;
             detailMediaImage.src = detail.mediaSrc;
             detailMediaImage.alt = detail.mediaAlt;
-            detailMediaImage.dataset.zoomable = 'true';
             return;
         }
 
@@ -466,23 +536,11 @@
     };
 
     const closeCupDetail = () => {
-        closeImageZoom();
+        forceCloseDetailMediaState();
 
-        if (selectedCupButton) {
-            selectedCupButton.classList.remove('is-selected');
-            selectedCupButton = null;
-        }
-
-        dingScreen.classList.remove('ding-detail-open');
         if (dingBack && dingScreen.classList.contains('ding-visible')) {
             dingBack.classList.add('ding-back-visible');
         }
-        detailPanel.classList.remove('is-visible');
-        detailPanel.setAttribute('aria-hidden', 'true');
-        detailPanel.hidden = true;
-        detailText.hidden = false;
-        clearDocumentButtons();
-        clearDetailMedia();
     };
 
     const openCupDetail = (button) => {
@@ -522,7 +580,6 @@
     const applyCupSelection = (button) => {
         const cupSourceNode = button.querySelector('.ingredient-cups-data');
         activeIngredientCode = button.dataset.ingredientCode || '';
-        activeIngredientLabel = button.querySelector('.ingredient-tag')?.textContent?.trim() || activeIngredientCode;
         activeCupDocuments = distributeAcrossCups(ingredientDocumentMap[activeIngredientCode] || []);
         const cupFiles = cupSourceNode?.dataset.cups
             ?.split(',')
@@ -552,14 +609,25 @@
     };
 
     const closeCinematic = () => {
-        closeCupDetail();
+        clearCinematicTimers();
+        forceCloseDetailMediaState();
         dingBack.classList.remove('ding-back-visible');
         dingScreen.classList.remove('ding-visible');
-        setTimeout(() => {
-            overlay.classList.remove('cinematic-slidedown');
-            panels.forEach((p) => p.classList.remove('panel-visible'));
-            running = false;
-        }, 600);
+        dingScreen.setAttribute('aria-hidden', 'true');
+        dingScreen.style.pointerEvents = 'none';
+        overlay.classList.remove('cinematic-visible', 'cinematic-slidedown');
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.style.pointerEvents = 'none';
+        panels.forEach((panel) => panel.classList.remove('panel-visible'));
+        dingCupButtons.forEach((slot, index) => {
+            resetCupSlot(slot, dingCupImages[index]);
+        });
+        activeCupDocuments = dingCupButtons.map(() => []);
+        document.body.classList.remove('recipe-active');
+        if (recipePanel) {
+            recipePanel.setAttribute('aria-hidden', 'true');
+        }
+        running = false;
     };
 
     if (dingBack) {
@@ -675,6 +743,7 @@
             return;
         }
         running = true;
+        clearCinematicTimers();
 
         closeCupDetail();
         applyCupSelection(event.currentTarget);
@@ -685,28 +754,36 @@
 
         // Fade in black overlay
         overlay.classList.add('cinematic-visible');
+        overlay.setAttribute('aria-hidden', 'false');
+        overlay.style.pointerEvents = '';
+        dingScreen.setAttribute('aria-hidden', 'true');
+        dingScreen.style.pointerEvents = '';
 
         // Left panel slides in
-        setTimeout(() => panels[0] && panels[0].classList.add('panel-visible'), 550);
+        scheduleCinematicStep(() => panels[0] && panels[0].classList.add('panel-visible'), 550);
 
         // Middle panel fades in
-        setTimeout(() => panels[1] && panels[1].classList.add('panel-visible'), 1200);
+        scheduleCinematicStep(() => panels[1] && panels[1].classList.add('panel-visible'), 1200);
 
         // Right panel fades in
-        setTimeout(() => panels[2] && panels[2].classList.add('panel-visible'), 1850);
+        scheduleCinematicStep(() => panels[2] && panels[2].classList.add('panel-visible'), 1850);
 
         // Slide all panels down → reveal ding screen
-        setTimeout(() => {
+        scheduleCinematicStep(() => {
             overlay.classList.add('cinematic-slidedown');
 
             // Once panels are off-screen, fade overlay out and show ding on top
-            setTimeout(() => {
+            scheduleCinematicStep(() => {
                 overlay.classList.remove('cinematic-visible');
+                overlay.setAttribute('aria-hidden', 'true');
+                overlay.style.pointerEvents = 'none';
                 dingScreen.classList.add('ding-visible');
+                dingScreen.setAttribute('aria-hidden', 'false');
+                dingScreen.style.pointerEvents = '';
             }, 500);
 
             // Show back button once ding screen is fully visible
-            setTimeout(() => {
+            scheduleCinematicStep(() => {
                 dingBack.classList.add('ding-back-visible');
             }, 1100);
         }, 3400);
